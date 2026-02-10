@@ -1,4 +1,4 @@
-console.log("homework-6.js подключен!");
+console.log("homework-6.js подключен");
 
 // Задание 3: Объект Человек 
 const person = {

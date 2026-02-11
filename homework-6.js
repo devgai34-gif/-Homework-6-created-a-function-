@@ -2,9 +2,7 @@ console.log("homework-6.js подключен");
 
 // Задание 3: Объект Человек 
 const person = {
-
-  
-  firstName: "Devid",
+firstName: "Devid",
   lastName: "Maer",
   age: 30,
   city: "Стамбул",
@@ -46,12 +44,23 @@ const spareParts = [
 ];
 spareParts.push({ name: "Руль", year: 2015, color: "Коричневый" });
 
+for (const { name, year, color } of spareParts) {
+  console.log(`Объект: ${name}, Год: ${year}`);
+}
+
 // Задание 9: Объединение массивов (Нива)
 const nivaParts = [
   { name: "Дверь", year: 1980, color: "Зеленый" },
   { name: "Капот", year: 2005, color: "Белый" }
 ];
 const allParts = [...spareParts, ...nivaParts];
+
+// Раскрываем объединенный массив всех запчастей
+console.log("--- Полный список всех запчастей (включая Ниву) ---");
+
+for (const { name, year, color } of allParts) {
+  console.log(`Деталь: ${name}, Цвет: ${color}, Год выпуска: ${year}`);
+}
 
 // Задание 10: Метод map (поиск редкостей) 
 function markRareParts(partsArray) {

@@ -24,29 +24,47 @@ function checkMaxSpeed(carObject) {
   if (!carObject.hasOwnProperty("maxSpeed")) {
     carObject.maxSpeed = 250;
   }
-}
+};
 checkMaxSpeed(car);
 
 // Задание 6: Функция-получатель значения 
-function getValue(obj, propertyName) {
+function getPropertyValue(obj, propertyName) {
   console.log("Значение свойства " + propertyName + ":", obj[propertyName]);
-}
-getValue(car, "brand");
+};
+getPropertyValue(car, "brand");
 
 // Задание 7: Массив продуктов 
 const products = ["Яблоки", "Молоко", "Хлеб", "Шоколад", "Бананы"];
 
 // Задание 8: Массив запчастей
 const spareParts = [
-  { name: "Мотор", year: 2010, color: "Серебристый" },
-  { name: "Колесо", year: 2022, color: "Черный" },
-  { name: "Фара", year: 1995, color: "Прозрачный" }
+  {
+    name: "Мотор",
+    year: 2010,
+    color: "Серебристый"
+  },
+  {
+    name: "Колесо",
+    year: 2022,
+    color: "Черный"
+  },
+  {
+    name: "Фара",
+    year: 1995,
+    color: "Прозрачный"
+  }
 ];
-spareParts.push({ name: "Руль", year: 2015, color: "Коричневый" });
 
-for (const { name, year, color } of spareParts) {
+// Добавление нового элемента
+spareParts.push({
+  name: "Руль",
+  year: 2015,
+  color: "Коричневый"
+});
+
+for (let { name, year, color } of spareParts) {
   console.log(`Объект: ${name}, Год: ${year}`);
-}
+};
 
 // Задание 9: Объединение массивов (Нива)
 const nivaParts = [
@@ -56,11 +74,11 @@ const nivaParts = [
 const allParts = [...spareParts, ...nivaParts];
 
 // Раскрываем объединенный массив всех запчастей
-console.log("--- Полный список всех запчастей (включая Ниву) ---");
+console.log(" Полный список всех запчастей (включая Ниву)");
 
-for (const { name, year, color } of allParts) {
+for (let { name, year, color } of allParts) {
   console.log(`Деталь: ${name}, Цвет: ${color}, Год выпуска: ${year}`);
-}
+};
 
 // Задание 10: Метод map (поиск редкостей) 
 function markRareParts(partsArray) {
@@ -70,7 +88,7 @@ function markRareParts(partsArray) {
       isRare: part.year < 2000 // Если раньше 2000 года — редкая
     };
   });
-}
+};
 
 const updatedParts = markRareParts(allParts);
 

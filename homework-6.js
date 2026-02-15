@@ -1,5 +1,5 @@
 // --- 1. ИМПОРТЫ В САМОМ ВЕРХУ ФАЙЛА ---
-import { socialComments } from './comments.js';
+import { socialComments } from './comments1.js';
 
 // --- ЗАДАНИЕ 1-2: Числа ---
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

@@ -1,4 +1,4 @@
-// "socialComments" (социальные комментарии)
+// "socialComments" (социальные комментарии1)
 
 export const socialComments = [
   {

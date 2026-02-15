@@ -1,96 +1,136 @@
-console.log("homework-6.js подключен");
+// --- 1. ИМПОРТЫ В САМОМ ВЕРХУ ФАЙЛА ---
+import { socialComments } from './comments.js';
 
-// Задание 3: Объект Человек 
-const person = {
-firstName: "Devid",
-  lastName: "Maer",
-  age: 30,
-  city: "Стамбул",
-  job: "Программист"
-};
+// --- ЗАДАНИЕ 1-2: Числа ---
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const filteredNumbers = numbers.filter((num) => num >= 5);
+console.log(filteredNumbers);
 
-// Задание 4: Объект Автомобиль 
-const car = {
-  brand: "Tesla",
-  model: "Model 3",
-  year: 2023,
-  color: "Белый",
-  transmission: "Автомат"
-};
-car.owner = person; // Добавляем владельца
+// --- ЗАДАНИЕ 3: Машины ---
+const cars = ["лада", "нива", "калина", "ваз"];
+const hasNiva = cars.includes("нива");
+console.log("Есть ли нива в списке?", hasNiva); 
 
-// Задание 5: Функция проверки скорости 
-function checkMaxSpeed(carObject) {
-  if (!carObject.hasOwnProperty("maxSpeed")) {
-    carObject.maxSpeed = 250;
-  }
-};
-checkMaxSpeed(car);
+// --- ЗАДАНИЕ 4: Функция (универсальная) ---
+// Используем spread [...arr], чтобы не портить оригинальный массив
+function reverseMyArray(arr) {
+    return [...arr].reverse(); 
+}
 
-// Задание 6: Функция-получатель значения 
-function getPropertyValue(obj, propertyName) {
-  console.log("Значение свойства " + propertyName + ":", obj[propertyName]);
-};
-getPropertyValue(car, "brand");
+// Переворачиваем числа и машины
+const reversedNumbers = reverseMyArray(filteredNumbers);
+console.log("Числа наоборот:", reversedNumbers);
 
-// Задание 7: Массив продуктов 
-const products = ["Яблоки", "Молоко", "Хлеб", "Шоколад", "Бананы"];
+const reversedCars = reverseMyArray(cars);
+console.log("Машины наоборот:", reversedCars);
 
-// Задание 8: Массив запчастей
-const spareParts = [
-  {
-    name: "Мотор",
-    year: 2010,
-    color: "Серебристый"
-  },
-  {
-    name: "Колесо",
-    year: 2022,
-    color: "Черный"
-  },
-  {
-    name: "Фара",
-    year: 1995,
-    color: "Прозрачный"
-  }
-];
+// --- ЗАДАНИЕ 6-7 (ИСПРАВЛЕННОЕ) ---
+// Нам НЕ НУЖНО снова писать import здесь, мы уже сделали это на 2-й строке.
+// Нам НЕ НУЖНО снова объявлять функцию reverseMyArray, она уже есть выше.
 
-// Добавление нового элемента
-spareParts.push({
-  name: "Руль",
-  year: 2015,
-  color: "Коричневый"
+console.log("Данные из другого файла успешно получены и готовы к работе.");
+
+// Просто используем уже созданную функцию и уже импортированные данные
+const reversedComments = reverseMyArray(socialComments);
+console.log("Комментарии в обратном порядке:", reversedComments);
+
+// --- ЗАДАНИЕ 7: Фильтрация по почте .com ---
+
+// 1. Создаем новый массив 'comComments'
+// 2. Метод filter проходит по каждому объекту (comment)
+// 3. Условие: если email содержит ".com", объект попадает в новый массив
+const filteredCommentsByCom = socialComments.filter((comment) => {
+    return comment.email.includes(".com");
 });
 
-for (let { name, year, color } of spareParts) {
-  console.log(`Объект: ${name}, Год: ${year}`);
-};
+// Выводим результат в консоль
+console.log("Комментарии, почта которых содержит .com:");
+console.log(filteredCommentsByCom);
 
-// Задание 9: Объединение массивов (Нива)
-const nivaParts = [
-  { name: "Дверь", year: 1980, color: "Зеленый" },
-  { name: "Капот", year: 2005, color: "Белый" }
-];
-const allParts = [...spareParts, ...nivaParts];
+// --- ЗАДАНИЕ 8: Изменение postId ---
 
-// Раскрываем объединенный массив всех запчастей
-console.log(" Полный список всех запчастей (включая Ниву)");
+const updatedComments = socialComments.map((comment) => {
+  // Создаем копию объекта, чтобы не испортить оригинал
+  const newComment = { ...comment };
 
-for (let { name, year, color } of allParts) {
-  console.log(`Деталь: ${name}, Цвет: ${color}, Год выпуска: ${year}`);
-};
+  if (newComment.id <= 5) {
+    newComment.postId = 2; // Если id 1, 2, 3, 4, 5 -> ставим postId: 2
+  } else {
+    newComment.postId = 1; // Для всех остальных (id > 5) -> ставим postId: 1
+  }
 
-// Задание 10: Метод map (поиск редкостей) 
-function markRareParts(partsArray) {
-  return partsArray.map(part => {
-    return {
-      ...part,
-      isRare: part.year < 2000 // Если раньше 2000 года — редкая
-    };
-  });
-};
+  return newComment; // Возвращаем измененный объект в новый массив
+});
 
-const updatedParts = markRareParts(allParts);
+console.log("Обновленные комментарии (задание 8):", updatedComments);
 
-// Финальный вывод в консоль для проверки
-console.log("Обновленный список запчастей:", updatedParts);
+// --- ЗАДАНИЕ 9: Только ID и Имя ---
+
+const shortComments = socialComments.map((comment) => {
+  // Возвращаем новый объект, в котором пишем только два поля
+  return {
+    id: comment.id,
+    name: comment.name
+  };
+});
+
+console.log("Краткий список",shortComments);
+
+// --- ЗАДАНИЕ 10: Проверка длины сообщения ---
+
+const validatedComments = socialComments.map((comment) => {
+  // 1. Создаем копию объекта (чтобы не менять оригинал)
+  const newComment = { ...comment };
+
+  // 2. Проверяем длину текста в поле body
+  if (newComment.body.length > 180) {
+    newComment.isInvalid = true;  // Слишком длинное
+  } else {
+    newComment.isInvalid = false; // Проходит по длине
+  }
+
+  return newComment; // Возвращаем обновленный объект в новый массив
+});
+
+console.log("Результат проверки длины:", validatedComments);
+
+// --- ЗАДАНИЕ 11: Сложное условие ---
+
+const emailsViaMap = socialComments.map(comment => comment.email);
+
+console.log("Emails (через map):", emailsViaMap);
+
+const emailsViaReduce = socialComments.reduce((acc, comment) => {
+  acc.push(comment.email);
+  return acc;
+}, []);
+
+console.log("Emails (через reduce):", emailsViaReduce);
+
+// --- ЗАДАНИЕ 12: Преобразование массива почт в строку ---
+
+// Возьмем для примера массив почт (из Задания 11)
+const emails = socialComments.map(comment => comment.email);
+
+// 1. Использование метода .toString()
+// разделяет элементы запятой по умолчанию.
+const stringFromToString = emails.toString();
+console.log("1. Результат toString():", stringFromToString);
+
+// 2. Использование метода .join()
+// задал свой разделитель запятая + пробел.
+const stringFromJoin = emails.join(", ");
+console.log("2. Результат join():", stringFromJoin);
+
+// 3. Ручной перебор массива (через цикл или forEach)
+let stringFromLoop = "";
+
+emails.forEach((email, index) => {
+  stringFromLoop += email;
+  
+  // Добавляем разделитель только если это НЕ последний элемент
+  if (index < emails.length - 1) {
+    stringFromLoop += " | "; // Используем вертикальную черту для разнообразия
+  }
+});
+console.log("3. Результат ручного перебора:", stringFromLoop);

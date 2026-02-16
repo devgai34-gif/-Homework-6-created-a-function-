@@ -1,1 +1,0 @@
-# -Homework-6-created-a-function-
